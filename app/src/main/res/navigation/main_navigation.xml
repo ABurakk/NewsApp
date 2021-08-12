@@ -2,12 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/fragmentNewsDetail">
-
-    <fragment
-        android:id="@+id/fragmentNewsDetail"
-        android:name="com.example.newsapp.ui.fragment.FragmentNewsDetail"
-        android:label="FragmentNewsDetail" />
+    app:startDestination="@id/fragmentNewsList">
     <fragment
         android:id="@+id/fragmentNewsList"
         android:name="com.example.newsapp.ui.fragment.FragmentNewsList"
@@ -16,4 +11,8 @@
             android:id="@+id/action_fragmentNewsList_to_fragmentNewsDetail"
             app:destination="@id/fragmentNewsDetail" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentNewsDetail"
+        android:name="com.example.newsapp.ui.fragment.FragmentNewsDetail"
+        android:label="FragmentNewsDetail" />
 </navigation>

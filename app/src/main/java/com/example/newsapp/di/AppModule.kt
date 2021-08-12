@@ -19,7 +19,7 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 object AppModule {
 
-    private const val BASE_URL = "https://newsapi.org/v2/everything/"
+    private const val BASE_URL = "https://newsapi.org/v2/"
 
     @Singleton
     @Provides
@@ -41,6 +41,7 @@ object AppModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
         .baseUrl(BASE_URL)
         .build()
 

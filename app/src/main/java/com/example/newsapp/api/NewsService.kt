@@ -1,14 +1,20 @@
 package com.example.newsapp.api
 
 import com.example.newsapp.data.Article
+import com.example.newsapp.data.News
 import com.example.newsapp.other.Resource
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface NewsService {
 
 
-    suspend fun getNewsByDefault() : Resource<List<Article>>
+
+    @GET("everything/")
+    suspend fun getNewsByDefault(@Query("q") q:String, @Query("apiKey") apiKey:String) : Response<News>
 
 
-    suspend fun getNewsByDate() : Resource<List<Article>>
+    suspend fun getNewsByDate()
 
 }
