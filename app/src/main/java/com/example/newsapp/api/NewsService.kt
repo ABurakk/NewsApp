@@ -1,10 +1,9 @@
-package com.example.newsapp.repository
+package com.example.newsapp.api
 
 import com.example.newsapp.data.Article
-import com.example.newsapp.data.News
 import com.example.newsapp.other.Resource
 
-interface NewsRepository {
+interface NewsService {
 
 
     suspend fun getNewsByDefault() : Resource<List<Article>>

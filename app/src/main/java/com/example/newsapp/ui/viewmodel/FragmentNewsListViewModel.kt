@@ -5,9 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newsapp.api.NewsRepository
 import com.example.newsapp.data.Article
 import com.example.newsapp.other.Resource
-import com.example.newsapp.repository.NewsRepository
+import com.example.newsapp.api.NewsService
 import kotlinx.coroutines.launch
 
 class FragmentNewsListViewModel @ViewModelInject constructor(
