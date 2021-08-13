@@ -7,7 +7,8 @@ import com.bumptech.glide.request.RequestOptions
 
 fun ImageView.downloadImage(url:String){
 
-    Glide.with(context)
-        .load(url)
-        .into(this)
+        Glide.with(context)
+            .load(url)
+            .into(this)
+
 }

@@ -16,7 +16,7 @@ class NewsRepository(private val service: NewsService) {
             return Resource.Success(responseBody)
         }
 
-        return Resource.Error(response.errorBody().toString())
+        return Resource.Error(response.code().toString())
     }
 
 }

@@ -1,10 +1,13 @@
 package com.example.newsapp.ui.fragment
 
-import android.os.Build
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import androidx.annotation.RequiresApi
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +15,7 @@ import com.example.newsapp.R
 import com.example.newsapp.adapter.NewsListAdapter
 import com.example.newsapp.databinding.FragmentNewsListBinding
 import com.example.newsapp.other.Resource
+import com.example.newsapp.other.constant
 import com.example.newsapp.ui.viewmodel.FragmentNewsListViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,13 +29,14 @@ class FragmentNewsList : Fragment(R.layout.fragment_news_list){
 
     lateinit var viewmodel : FragmentNewsListViewModel
     private lateinit var binding : FragmentNewsListBinding
-    lateinit var firstDay : LocalDateTime
+    lateinit var startDayDay : LocalDateTime
     lateinit var format : DateTimeFormatter
     lateinit var current :LocalDateTime
     lateinit var recyclerViewAdapter : NewsListAdapter
     lateinit var linearLayoutManager: LinearLayoutManager
-    lateinit var todayDateText : String
+    lateinit var currentDateText : String
     lateinit var firstDayDateText : String
+    lateinit var fav:MenuItem
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,37 +45,54 @@ class FragmentNewsList : Fragment(R.layout.fragment_news_list){
         binding.progressBar.visibility = View.INVISIBLE
         viewmodel = ViewModelProvider(requireActivity()).get(FragmentNewsListViewModel::class.java)
 
-        setDateVariable()
-        setRecyclerViewAdapter()
-        viewmodel.getNews("football","ae68088e70d04639b4950bdc9d546924",firstDayDateText,todayDateText)
+        initilazeDateVariable()
+        initilazeRecyclerViewAdapter()
+        viewmodel.getNews(constant.queryParemeter,constant.apiKey,firstDayDateText,currentDateText)
 
 
+        setHasOptionsMenu(true)
 
-
-
-
-
-//
         watchToNewsListObserver()
     }
 
 
-    fun setDateVariable(){
-        format = DateTimeFormatter.ISO_DATE
-        current = LocalDateTime.now()
-        firstDay = current.minusDays(10)
-        todayDateText = current.format(format)
-        firstDayDateText = firstDay.format(format)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+           R.id.filterDate -> {
+               val datepicker = DatePickerDialog(requireContext())
+
+               datepicker.setOnDateSetListener( { datePicker, year, month, day ->
+                   firstDayDateText=year.toString()+"-"+(month+1).toString()+"-"+day.toString()
+                   viewmodel.getNews(constant.queryParemeter,constant.apiKey,firstDayDateText,currentDateText)
+               })
+                   datepicker.show()
+
+           }
+        }
+
+        return true
     }
 
 
-    fun setRecyclerViewAdapter(){
+    fun initilazeDateVariable(){
+        format = DateTimeFormatter.ISO_DATE
+        current = LocalDateTime.now()
+        startDayDay = current.minusDays(10)
+        currentDateText = current.format(format)
+        firstDayDateText = startDayDay.format(format)
+    }
+    fun initilazeRecyclerViewAdapter(){
         recyclerViewAdapter = NewsListAdapter(listOf())
         linearLayoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewNews.layoutManager = linearLayoutManager
         binding.recyclerViewNews.adapter = recyclerViewAdapter
     }
-
     fun watchToNewsListObserver(){
        viewmodel.newsListLiveData.observe(requireActivity()){
            when(it){
