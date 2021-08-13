@@ -20,10 +20,10 @@ class FragmentNewsListViewModel @ViewModelInject constructor(
     var newsListLiveData : LiveData<Resource<News>> = _newsListLiveData
 
 
-    fun getNews(q:String, apiKey:String){
+    fun getNews(q:String, apiKey:String, dateFrom:String,dateTo:String){
         _newsListLiveData.postValue(Resource.Loading())
         viewModelScope.launch {
-            _newsListLiveData.postValue(repository.getNewsByDefault(q,apiKey))
+            _newsListLiveData.postValue(repository.getNewsByDefault(q,apiKey,dateFrom,dateTo))
         }
     }
 

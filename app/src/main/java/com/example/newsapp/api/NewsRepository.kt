@@ -7,9 +7,9 @@ import retrofit2.Response
 
 class NewsRepository(private val service: NewsService) {
 
-    suspend fun getNewsByDefault(q:String,apiKey:String) : Resource<News>{
+    suspend fun getNewsByDefault(q:String,apiKey:String,dateFrom:String,dateTo:String) : Resource<News>{
 
-        val response = service.getNewsByDefault(q, apiKey)
+        val response = service.getNewsByDefault(q, apiKey,dateFrom,dateTo)
 
         if(response.isSuccessful){
             val responseBody = response.body()
