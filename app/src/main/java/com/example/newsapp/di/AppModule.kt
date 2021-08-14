@@ -1,13 +1,12 @@
 package com.example.newsapp.di
 
-import android.content.Context
+import com.example.newsapp.api.DeafultNewsRepository
 import com.example.newsapp.api.NewsRepository
 import com.example.newsapp.api.NewsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -52,7 +51,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providesRepository(newsService: NewsService) = NewsRepository(newsService)
+    fun providesRepository(newsService: NewsService) = DeafultNewsRepository(newsService) as NewsRepository
 
 
 

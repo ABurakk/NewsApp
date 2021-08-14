@@ -14,7 +14,4 @@ interface NewsService {
     @GET("everything/")
     suspend fun getNewsByDefault(@Query("q") q:String, @Query("apiKey") apiKey:String,@Query("from") date:String,@Query("to") date2:String) : Response<News>
 
-
-    suspend fun getNewsByDate()
-
 }

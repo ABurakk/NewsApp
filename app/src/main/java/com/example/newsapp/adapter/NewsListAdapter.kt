@@ -1,13 +1,17 @@
 package com.example.newsapp.adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.data.Article
 import com.example.newsapp.databinding.NewsItemBinding
 import com.example.newsapp.other.downloadImage
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 class NewsListAdapter(var newsList : List<Article>) :
     RecyclerView.Adapter<NewsListAdapter.ViewHolder>() {
@@ -16,6 +20,7 @@ class NewsListAdapter(var newsList : List<Article>) :
 
 
     class ViewHolder (binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root){
+
 
         var imgNews = binding.ivNews
         var tvTitle = binding.tvTitle
@@ -34,6 +39,10 @@ class NewsListAdapter(var newsList : List<Article>) :
             holder.description.text = it.description
             holder.tvDate.text = it.publishedAt
             holder.imgNews.downloadImage(it.urlToImage)
+            holder.itemView.setOnClickListener {
+
+            }
+
 
         }
 

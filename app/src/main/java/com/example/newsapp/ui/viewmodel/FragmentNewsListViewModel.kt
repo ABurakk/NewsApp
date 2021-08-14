@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newsapp.api.DeafultNewsRepository
 import com.example.newsapp.api.NewsRepository
 import com.example.newsapp.other.Resource
 import com.example.newsapp.data.News
@@ -21,9 +22,10 @@ class FragmentNewsListViewModel @ViewModelInject constructor(
 
 
     fun getNews(q:String, apiKey:String, dateFrom:String,dateTo:String){
+
         _newsListLiveData.postValue(Resource.Loading())
         viewModelScope.launch {
-            _newsListLiveData.postValue(repository.getNewsByDefault(q,apiKey,dateFrom,dateTo))
+            _newsListLiveData.postValue(repository.getNewsByApi(q,apiKey,dateFrom,dateTo))
         }
     }
 
