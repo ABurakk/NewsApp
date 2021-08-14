@@ -14,5 +14,18 @@
     <fragment
         android:id="@+id/fragmentNewsDetail"
         android:name="com.example.newsapp.ui.fragment.FragmentNewsDetail"
-        android:label="FragmentNewsDetail" />
+        android:label="FragmentNewsDetail" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="url"
+            app:argType="string" />
+        <argument
+            android:name="urlToImage"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -88,7 +88,7 @@ class FragmentNewsList : Fragment(R.layout.fragment_news_list){
         firstDayDateText = startDayDay.format(format)
     }
     fun initilazeRecyclerViewAdapter(){
-        recyclerViewAdapter = NewsListAdapter(listOf())
+        recyclerViewAdapter = NewsListAdapter(requireView(),listOf())
         linearLayoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewNews.layoutManager = linearLayoutManager
         binding.recyclerViewNews.adapter = recyclerViewAdapter

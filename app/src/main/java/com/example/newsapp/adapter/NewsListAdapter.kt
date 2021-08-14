@@ -6,14 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.data.Article
 import com.example.newsapp.databinding.NewsItemBinding
 import com.example.newsapp.other.downloadImage
+import com.example.newsapp.ui.fragment.FragmentNewsList
+import com.example.newsapp.ui.fragment.FragmentNewsListDirections
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import kotlin.math.acos
 
-class NewsListAdapter(var newsList : List<Article>) :
+class NewsListAdapter(var view : View , var newsList : List<Article>) :
     RecyclerView.Adapter<NewsListAdapter.ViewHolder>() {
 
 
@@ -39,8 +43,10 @@ class NewsListAdapter(var newsList : List<Article>) :
             holder.description.text = it.description
             holder.tvDate.text = it.publishedAt
             holder.imgNews.downloadImage(it.urlToImage)
+            val article = it
             holder.itemView.setOnClickListener {
-
+                val action =FragmentNewsListDirections.actionFragmentNewsListToFragmentNewsDetail(article.title,article.description,article.url,article.urlToImage)
+                Navigation.findNavController(view).navigate(action)
             }
 
 
